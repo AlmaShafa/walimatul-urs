@@ -16,7 +16,7 @@
         ============================== */
         :root {
             --bg-color: #f4f7f4; 
-            --bg-card: #ffffff;
+            --bg-card: #1bbda228;
             --sage-primary: #859f85; 
             --sage-dark: #4a5e4a; 
             --gold: #c5a880; 
@@ -35,7 +35,7 @@
 
         body {
             /* Background Foto Utama dengan lapisan Sage Green tipis agar teks tetap terbaca */
-            background: linear-gradient(rgba(255, 255, 255, 0), rgba(244, 247, 244, 0)), 
+            background: linear-gradient(rgba(255, 255, 255, 0), rgba(244, 247, 244, 0.733)), 
                         url('https://images.unsplash.com/photo-1524824267900-2fa9cbf7a506?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); 
             background-attachment: fixed; /* Membuat background diam saat discroll */
             background-size: cover;
@@ -61,7 +61,7 @@
         ============================== */
         #cover {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-            background: linear-gradient(rgba(74, 94, 74, 0.7), rgba(74, 94, 74, 0.9)), 
+            background: linear-gradient(rgba(74, 94, 74, 0), rgba(74, 94, 74, 0.9)), 
                         url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=2069&auto=format&fit=crop'); 
             background-size: cover; background-position: center;
             z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -94,7 +94,7 @@
             border-radius: 8px; backdrop-filter: blur(5px);
         }
         .guest-box p { color: #e2e8e2; font-size: 0.85rem; margin-bottom: 0.5rem; }
-        .guest-box h2 { color: #fff; font-size: 1.5rem; font-family: var(--font-sans); font-weight: 500; }
+        .guest-box h2 { color: #fff; font-size: 1rem; font-family: var(--font-sans); font-weight: 500; }
 
         .btn-sage {
             background-color: var(--sage-primary); color: #fff; border: none; padding: 12px 30px;
@@ -126,13 +126,54 @@
         .event-card h3 { font-size: 1.5rem; margin-bottom: 1rem; letter-spacing: 2px; }
         .event-card .time {
             color: var(--sage-dark); font-weight: 600; margin: 1.5rem 0; font-size: 1.1rem;
-            background: rgba(251, 252, 251, 0.1); padding: 10px; border-radius: 8px;
+            background: lch(98.87% 0.61 144.92 / 0); padding: 10px; border-radius: 8px;
         }
 
-        .countdown-wrapper { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; }
-        .countdown-item { text-align: center; }
-        .countdown-item span { display: block; font-size: 2.5rem; font-family: var(--font-serif); color: var(--sage-dark); line-height: 1; }
-        .countdown-item p { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.5rem; }
+        /* Wrapper Countdown */
+        .countdown-wrapper { 
+            display: flex; 
+            justify-content: center; 
+            gap: 1rem; 
+            margin-top: 2rem; 
+            flex-wrap: wrap; /* Mencegah kotak berdempetan di layar HP kecil */
+        }
+        
+        /* Background Kotak Kaca untuk Setiap Angka */
+        .countdown-item { 
+            text-align: center; 
+            background-color: rgba(255, 255, 255, 0.15); /* Background putih jernih 15% */
+            backdrop-filter: blur(3px); /* Efek blur kaca tipis */
+            -webkit-backdrop-filter: blur(3px);
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Bingkai putih tipis */
+            border-radius: 12px; /* Sudut membulat */
+            padding: 1.2rem 1rem;
+            min-width: 80px; /* Lebar kotak diseragamkan */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05); /* Bayangan lembut */
+            transition: transform 0.3s ease;
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-5px); /* Efek naik sedikit saat disentuh */
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Styling Angka dan Teks */
+        .countdown-item span { 
+            display: block; 
+            font-size: 2.2rem; 
+            font-family: var(--font-serif); 
+            color: var(--sage-dark); 
+            line-height: 1; 
+            margin-bottom: 0.5rem;
+        }
+        
+        .countdown-item p { 
+            font-size: 0.75rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px; 
+            margin: 0; 
+            font-weight: 500;
+        }
 
         /* ==============================
            6. LOVE STORY KOTAK FOTO BESAR (UPDATED)
@@ -295,6 +336,7 @@
         /* Animasi Fade-in */
         .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 1s ease-out, transform 1s ease-out; }
         .fade-in.appear { opacity: 1; transform: translateY(0); }
+        
     </style>
 </head>
 <body>
@@ -304,7 +346,7 @@
         <div class="cover-content">
             <h3>The Wedding Of</h3>
             
-            <img src="https://images.unsplash.com/photo-1670014235502-08593dc092b4?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Foto Nathan & Olivia" class="cover-photo-oval">
+            <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Foto Nathan & Olivia" class="cover-photo-oval">
             
             <h1>Nathan & Olivia</h1>
             <p style="color:#fff; font-size:1.1rem; margin-bottom: 1rem;">28 November 2026</p>
@@ -495,6 +537,9 @@
             <p>Atas kehadiran dan doa restunya, kami ucapkan terima kasih.</p>
             <p>Wassalamu'alaikum Wr. Wb.</p>
             <p style="margin-top: 1rem; font-family: var(--font-serif); font-size: 1.2rem;">Nathan & Olivia</p>
+            <p style="margin-top: 1rem; font-size: 0.75rem; letter-spacing: 1px; opacity: 0.75; font-weight: 500;;">
+                © copyright 2026 AlmaShafa-Wedding-Invitation
+            </p>
         </footer>
 
     </div>
@@ -542,7 +587,7 @@
         faders.forEach(fader => appearOnScroll.observe(fader));
 
         // 4. COUNTDOWN TIMER
-        const countDownDate = new Date("Nov 28, 2026 09:00:00").getTime();
+        const countDownDate = new Date("Jun 28, 2026 09:00:00").getTime();
         const x = setInterval(function() {
             const now = new Date().getTime();
             const distance = countDownDate - now;
