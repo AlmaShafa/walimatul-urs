@@ -497,7 +497,7 @@
 
         // 7. GOOGLE SHEETS URL
         // PENTING: GANTI DENGAN URL APPS SCRIPT ANDA
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbxAzQms8Ap0NMfvjpqtrpel5gjZRAAK3qNYA7PpRMHNNIeEyHMPNoSKUA_j0t56nf2G/exec'; 
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbyZYJMBQm_7nkJ26Lbdb02-UDWA3_M6ep6OqJknlmDTCOA1g0gIASUKq5UC_zbKyGA/exec'; 
         
         // 8. LOGIKA LOAD LIVE RSVP
         function loadLiveRSVP() {
@@ -523,7 +523,7 @@
                                     <div class="rsvp-name">${item.nama}</div>
                                     <div class="rsvp-status ${statusClass}">${statusText}</div>
                                 </div>
-                                <div class="rsvp-message">"${item.ucapan}"</div>
+                                <div class="rsvp-message">"${item.ucapan ? item.ucapan : ''}"</div>
                             </div>
                         `;
                         feedContainer.innerHTML += rsvpHTML;
