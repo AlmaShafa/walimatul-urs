@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Pernikahan - Nathan & Olivia</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==============================
+           1. VARIABEL WARNA SAGE & PASTEL
+        ============================== */
+        :root {
+            --bg-color: #f4f7f4; /* Pastel Sage / Off-white */
+            --bg-card: #ffffff;
+            --sage-primary: #859f85; /* Soft Sage Green */
+            --sage-dark: #4a5e4a; /* Dark Sage for text/headings */
+            --gold: #c5a880; /* Soft Gold / Champagne */
+            --gold-hover: #a88d66;
+            --text-dark: #333333;
+            --text-muted: #666666;
+            
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Montserrat', sans-serif;
+            --font-arabic: 'Amiri', serif;
+        }
+
+        /* ==============================
+           2. RESET & GLOBAL STYLES
+        ============================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            line-height: 1.6;
+            overflow-y: hidden; /* Dinonaktifkan sampai Buka Undangan diklik */
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            color: var(--sage-dark);
+        }
+
+        p {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--text-muted);
+        }
+
+        a { text-decoration: none; }
+
+        /* ==============================
+           3. COVER / HERO SECTION
+        ============================== */
+        #cover {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100vh;
+            /* Background cover di-tint dengan warna sage */
+            background: linear-gradient(rgba(74, 94, 74, 0.7), rgba(74, 94, 74, 0.9)), 
+                        url('https://images.unsplash.com/photo-1723832348105-2e69f948135a?q=80&w=712&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); 
+            background-size: cover;
+            background-position: center;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            transition: opacity 1s ease-in-out, visibility 1s;
+            padding: 1rem;
+        }
+
+        .cover-content h3 {
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-family: var(--font-sans);
+            color: #fff;
+        }
+
+        .cover-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-style: italic;
+            color: #fff;
+        }
+
+        .guest-box {
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255,255,255, 0.3);
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+        }
+
+        .guest-box p {
+            color: #e2e8e2;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .guest-box h2 {
+            color: #fff;
+            font-size: 1.5rem;
+            font-family: var(--font-sans);
+            font-weight: 500;
+        }
+
+        .btn-sage {
+            background-color: var(--sage-primary);
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-sage:hover {
+            background-color: var(--sage-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ==============================
+           4. MAIN CONTENT
+        ============================== */
+        .section {
+            padding: 5rem 1.5rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .divider {
+            width: 60px;
+            height: 2px;
+            background-color: var(--gold);
+            margin: 0 auto 2rem auto;
+        }
+
+        /* QURAN VERSE */
+        .quran-text {
+            font-family: var(--font-arabic);
+            font-size: 2rem;
+            line-height: 2.5;
+            color: var(--sage-dark);
+            margin-bottom: 1.5rem;
+            direction: rtl;
+        }
+
+        /* EVENT DETAILS */
+        .event-card-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media(min-width: 768px) {
+            .event-card-container { flex-direction: row; }
+        }
+
+        .event-card {
+            background-color: var(--bg-card);
+            padding: 2.5rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(74, 94, 74, 0.05);
+            flex: 1;
+            transition: transform 0.3s ease;
+            border-top: 4px solid var(--sage-primary);
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .event-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .event-card .time {
+            color: var(--sage-dark);
+            font-weight: 500;
+            margin: 1.5rem 0;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        /* LOVE STORY */
+        .story-timeline {
+            text-align: left;
+            position: relative;
+            margin-top: 2rem;
+        }
+        .story-timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--sage-primary);
+        }
+        .story-item {
+            position: relative;
+            padding-left: 50px;
+            margin-bottom: 2rem;
+        }
+        .story-item::before {
+            content: '';
+            position: absolute;
+            left: 14px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--gold);
+        }
+        .story-item h4 {
+            color: var(--sage-dark);
+            margin-bottom: 0.5rem;
+            font-family: var(--font-serif);
+        }
+
+        /* GALLERY SLIDER */
+        .slider-container {
+            position: relative;
+            max-width: 100%;
+            margin: 2rem auto;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+        .slide img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.7);
+            color: var(--sage-dark);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 10;
+        }
+        .slider-btn:hover { background: #fff; }
+        .prev-btn { left: 10px; }
+        .next-btn { right: 10px; }
+
+        /* GIFT SECTION */
+        .gift-box {
+            background-color: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 10px 30px rgba(74, 94, 74, 0.05);
+            border: 1px solid rgba(133, 159, 133, 0.2);
+        }
+        .gift-box h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--sage-dark);
+        }
+        .gift-box p.rekening {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin: 1rem 0;
+            letter-spacing: 1px;
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--sage-dark);
+            border: 1px solid var(--sage-primary);
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: 0.3s;
+        }
+        .btn-outline:hover {
+            background: var(--sage-primary);
+            color: #fff;
+        }
+
+        /* RSVP FORM */
+        .rsvp-container {
+            background-color: var(--bg-card);
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(74, 94, 74, 0.05);
+            text-align: left;
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--sage-dark);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            background-color: transparent;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--text-dark);
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--sage-primary);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--sage-primary);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-submit:hover { background-color: var(--sage-dark); }
+
+        /* Feedback Messages */
+        #loading-msg, #success-msg, #error-msg {
+            display: none;
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 1rem;
+        }
+        #success-msg { color: var(--sage-dark); font-weight: 500; }
+        #error-msg { color: #ef4444; }
+
+        /* ANIMASI FADE-IN */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cover">
+        <div class="cover-content">
+            <h3>The Wedding Of</h3>
+            <h1>Nathan & Olivia</h1>
+            <p style="color:#fff; font-size:1.1rem; margin-bottom: 1rem;">28 November 2026</p>
+            
+            <div class="guest-box">
+                <p>Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+                <h2 id="guest-name">Tamu Undangan</h2>
+            </div>
+
+            <button class="btn-sage" onclick="bukaUndangan()">Buka Undangan</button>
+        </div>
+    </div>
+
+    <div id="main-content">
+        
+        <section class="section fade-in">
+            <h2 class="section-title">Assalamu'alaikum Wr. Wb.</h2>
+            <div class="divider"></div>
+            
+            <div class="quran-text">
+                وَمِنْ ءَايَٰتِهِۦٓ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَٰجًا لِّتَسْكُنُوٓا۟ إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِى ذَٰلِكَ لَءَايَٰتٍ لِّقَوْمٍ يَتَفَكَّرُونَ
+            </div>
+            
+            <p style="font-style: italic;">
+                "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya, dan dijadikan-Nya diantaramu rasa kasih dan sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda bagi kaum yang berfikir."
+            </p>
+            <p style="margin-top: 1rem; font-weight: 500; color: var(--sage-dark);">
+                (QS. Ar-Rum: 21)
+            </p>
+            
+            <p style="margin-top: 2rem;">
+                Dengan memohon rahmat dan ridho Allah Subhanahu Wa Ta'ala, kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami.
+            </p>
+        </section>
+
+        <section class="section fade-in">
+            <h2 class="section-title">Detail Acara</h2>
+            <div class="divider"></div>
+            
+            <div class="event-card-container">
+                <div class="event-card">
+                    <h3>AKAD NIKAH</h3>
+                    <p>Sabtu, 28 November 2026</p>
+                    <div class="time">09.00 - 11.00 WIB</div>
+                    <p><strong>Masjid Istiqlal</strong></p>
+                    <p>Jl. Taman Wijaya Kusuma, Jakarta Pusat</p>
+                    <a href="#" target="_blank" class="btn-outline" style="display:inline-block; margin-top:1rem;">Lihat Lokasi</a>
+                </div>
+
+                <div class="event-card">
+                    <h3>RESEPSI</h3>
+                    <p>Sabtu, 28 November 2026</p>
+                    <div class="time">13.00 - 16.00 WIB</div>
+                    <p><strong>Ritz-Carlton Pacific Place</strong></p>
+                    <p>Sudirman Central Business District (SCBD)</p>
+                    <a href="#" target="_blank" class="btn-outline" style="display:inline-block; margin-top:1rem;">Lihat Lokasi</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section fade-in">
+            <h2 class="section-title">Kisah Cinta Kami</h2>
+            <div class="divider"></div>
+            <div class="story-timeline">
+                <div class="story-item">
+                    <h4>Pertama Bertemu (Januari 2023)</h4>
+                    <p>Kami pertama kali dipertemukan oleh seorang teman dalam sebuah kajian rutin di akhir pekan. Dari sana, perkenalan singkat kami dimulai.</p>
+                </div>
+                <div class="story-item">
+                    <h4>Khitbah / Lamaran (Agustus 2025)</h4>
+                    <p>Dengan niat baik dan atas restu kedua keluarga, prosesi khitbah dilangsungkan dengan sederhana namun penuh kehangatan.</p>
+                </div>
+                <div class="story-item">
+                    <h4>Pernikahan (November 2026)</h4>
+                    <p>Insha Allah, kami akan melangsungkan ibadah terpanjang ini. Memulai lembaran baru untuk meraih ridho-Nya bersama-sama.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section fade-in">
+            <h2 class="section-title">Galeri</h2>
+            <div class="divider"></div>
+            
+            <div class="slider-container">
+                <button class="slider-btn prev-btn" onclick="moveSlide(-1)">&#10094;</button>
+                <div class="slider" id="slider">
+                    <div class="slide"><img src="https://images.unsplash.com/photo-1595986877918-091a0c0ddcb0?auto=format&fit=crop&w=800&q=80" alt="Foto 1"></div>
+                    <div class="slide"><img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80" alt="Foto 2"></div>
+                    <div class="slide"><img src="https://images.unsplash.com/photo-1549417229-aa67d3263c09?auto=format&fit=crop&w=800&q=80" alt="Foto 3"></div>
+                    <div class="slide"><img src="https://images.unsplash.com/photo-1622312678663-e382d6b3846e?auto=format&fit=crop&w=800&q=80" alt="Foto 4"></div>
+                    <div class="slide"><img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80" alt="Foto 5"></div>
+                    <div class="slide"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80" alt="Foto 6"></div>
+                    <div class="slide"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80" alt="Foto 7"></div>
+                </div>
+                <button class="slider-btn next-btn" onclick="moveSlide(1)">&#10095;</button>
+            </div>
+        </section>
+
+        <section class="section fade-in">
+            <h2 class="section-title">Amplop Digital</h2>
+            <div class="divider"></div>
+            <p style="margin-bottom: 2rem;">Doa restu Bapak/Ibu/Saudara/i merupakan karunia yang sangat berarti bagi kami. Bagi yang ingin memberikan tanda kasih, dapat mengirimkan melalui:</p>
+            
+            <div class="gift-box">
+                <h4>Bank BCA</h4>
+                <p>A.n. Nathan Mahendra</p>
+                <p class="rekening" id="rek1">1234567890</p>
+                <button class="btn-outline" onclick="salinTeks('rek1')">Salin No. Rekening</button>
+            </div>
+
+            <div class="gift-box">
+                <h4>Bank BSI</h4>
+                <p>A.n. Olivia Putri</p>
+                <p class="rekening" id="rek2">9876543210</p>
+                <button class="btn-outline" onclick="salinTeks('rek2')">Salin No. Rekening</button>
+            </div>
+            
+            <p style="font-size: 0.85rem; margin-top: 2rem;">Kirimkan hadiah fisik? Silakan hubungi kami untuk konfirmasi alamat pengiriman.</p>
+        </section>
+
+        <section class="section fade-in">
+            <h2 class="section-title">Kehadiran & Doa</h2>
+            <div class="divider"></div>
+            <p style="margin-bottom: 2rem;">Kehadiran Anda adalah doa, mohon konfirmasi melalui form di bawah ini.</p>
+            
+            <div class="rsvp-container">
+                <form id="rsvp-form" name="submit-to-google-sheet">
+                    <div class="form-group">
+                        <label>Nama Lengkap</label>
+                        <input type="text" name="Nama" class="form-control" placeholder="Tulis nama Anda..." required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Jumlah Tamu</label>
+                        <input type="number" name="Jumlah Tamu" class="form-control" min="1" max="10" placeholder="Contoh: 2" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Konfirmasi Kehadiran</label>
+                        <select name="Kehadiran" class="form-control" required>
+                            <option value="" disabled selected>Pilih status kehadiran...</option>
+                            <option value="Hadir">Insya Allah Hadir</option>
+                            <option value="Tidak Hadir">Maaf, Belum Bisa Hadir</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ucapan & Doa</label>
+                        <textarea name="Ucapan" class="form-control" placeholder="Tuliskan doa untuk pengantin..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="submit-btn">Kirim Konfirmasi</button>
+                </form>
+
+                <div id="loading-msg">Mengirim data... Mohon tunggu.</div>
+                <div id="success-msg">Jazakumullah Khairan! Konfirmasi dan doa Anda telah kami terima.</div>
+                <div id="error-msg">Maaf, terjadi kesalahan. Silakan coba lagi.</div>
+            </div>
+        </section>
+        
+        <footer style="text-align: center; padding: 2rem; background: var(--bg-card); color: var(--sage-dark); font-size: 0.85rem;">
+            <p>Atas kehadiran dan doa restunya, kami ucapkan terima kasih.</p>
+            <p>Wassalamu'alaikum Wr. Wb.</p>
+            <p style="margin-top: 1rem; font-family: var(--font-serif); font-size: 1.2rem;">Nathan & Olivia</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // 1. DINAMIS NAMA TAMU DARI URL PARAMETER (contoh: url.html?to=Budi+Santoso)
+        const urlParams = new URLSearchParams(window.location.search);
+        const guestName = urlParams.get('to');
+        if (guestName) {
+            document.getElementById('guest-name').innerText = guestName;
+            // Otomatis isi kolom nama di form RSVP
+            document.querySelector('input[name="Nama"]').value = guestName; 
+        }
+
+        // 2. LOGIKA BUKA UNDANGAN
+        function bukaUndangan() {
+            document.getElementById('cover').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('cover').style.visibility = 'hidden';
+                document.body.style.overflowY = 'auto'; // Aktifkan scroll
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 1000);
+        }
+
+        // 3. SLIDER FOTO GALERI
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const slider = document.getElementById('slider');
+        
+        function moveSlide(step) {
+            currentSlide += step;
+            if (currentSlide >= slides.length) {
+                currentSlide = 0;
+            } else if (currentSlide < 0) {
+                currentSlide = slides.length - 1;
+            }
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        // 4. SALIN REKENING (COPY TO CLIPBOARD)
+        function salinTeks(elementId) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                alert("Nomor rekening berhasil disalin: " + textToCopy);
+            }).catch(err => {
+                alert("Gagal menyalin teks.");
+            });
+        }
+
+        // 5. LOGIKA FADE-IN SAAT SCROLL
+        const faders = document.querySelectorAll('.fade-in');
+        const appearOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+        const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('appear');
+                observer.unobserve(entry.target);
+            });
+        }, appearOptions);
+        faders.forEach(fader => appearOnScroll.observe(fader));
+
+        // 6. LOGIKA RSVP KE GOOGLE SHEETS (AJAX)
+        // PENTING: Masukkan URL Web App Google Apps Script Anda di bawah ini
+        const scriptURL = 'MOHON_MASUKKAN_URL_WEB_APP_APPS_SCRIPT_DI_SINI'; 
+        const form = document.forms['submit-to-google-sheet'];
+        const btnSubmit = document.getElementById('submit-btn');
+        const loadingMsg = document.getElementById('loading-msg');
+        const successMsg = document.getElementById('success-msg');
+        const errorMsg = document.getElementById('error-msg');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+            btnSubmit.style.display = 'none';
+            loadingMsg.style.display = 'block';
+            errorMsg.style.display = 'none';
+
+            fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response => {
+                    loadingMsg.style.display = 'none';
+                    form.style.display = 'none';
+                    successMsg.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    loadingMsg.style.display = 'none';
+                    btnSubmit.style.display = 'block';
+                    errorMsg.style.display = 'block';
+                });
+        });
+    </script>
+</body>
+</html>
