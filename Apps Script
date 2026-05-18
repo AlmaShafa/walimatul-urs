@@ -1,0 +1,82 @@
+// Nama sheet Anda (Pastikan sesuai dengan nama tab di bagian bawah Google Sheet)
+const sheetName = 'Sheet1'; 
+
+// ID Spreadsheet Anda
+const sheetId = '1tf3FUW_mkEYyD_hPSy48TfJucQwcVzNmPF5Jzt-cfiA';
+
+// ==========================================
+// 1. FUNGSI MENYIMPAN DATA DARI HTML KE SHEET (POST)
+// ==========================================
+function doPost(e) {
+  const lock = LockService.getScriptLock();
+  // Tunggu hingga 10 detik agar antrean pengisian data tidak tabrakan
+  lock.tryLock(10000);
+
+  try {
+    const doc = SpreadsheetApp.openById(sheetId);
+    const sheet = doc.getSheetByName(sheetName);
+
+    // Ambil header di baris pertama
+    const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+    const nextRow = sheet.getLastRow() + 1;
+
+    // Cocokkan data yang dikirim dengan Header di Sheet
+    const newRow = headers.map(function(header) {
+      return header === 'Timestamp' ? new Date() : e.parameter[header];
+    });
+
+    // Simpan baris baru ke dalam Sheet
+    sheet.getRange(nextRow, 1, 1, newRow.length).setValues([newRow]);
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ 'result': 'success', 'row': nextRow }))
+      .setMimeType(ContentService.MimeType.JSON);
+      
+  } catch (error) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ 'result': 'error', 'error': error.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+
+// ==========================================
+// 2. FUNGSI MENGAMBIL DATA DARI SHEET KE HTML (GET)
+// ==========================================
+function doGet(e) {
+  try {
+    const doc = SpreadsheetApp.openById(sheetId);
+    const sheet = doc.getSheetByName(sheetName);
+    
+    // Mengambil semua data dari sheet
+    const data = sheet.getDataRange().getValues();
+    const rsvpList = [];
+
+    // Looping data mulai dari baris ke-2 (index 1) untuk melewati header
+    for (let i = 1; i < data.length; i++) {
+      let row = data[i];
+      // Memastikan baris tidak kosong dengan mengecek Kolom B (Nama)
+      if (row[1] !== "") { 
+        rsvpList.push({
+          nama: row[1],       // Index 1 = Kolom B (Nama)
+          kehadiran: "Hadir", // Diisi manual karena di Sheet Anda tidak ada kolom Kehadiran
+          ucapan: row[3]      // Index 3 = Kolom D (Ucapan) -> INI KUNCI PERBAIKANNYA
+        });
+      }
+    }
+
+    // Membalikkan urutan array agar data terbaru berada di atas
+    rsvpList.reverse();
+
+    return ContentService
+      .createTextOutput(JSON.stringify(rsvpList))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    return ContentService
+      .createTextOutput(JSON.stringify({ 'error': error.message }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
